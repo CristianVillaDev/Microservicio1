@@ -20,31 +20,33 @@ import com.ubosque.DTO.Productos;
 @ComponentScan(basePackages = { "com.ubosque.DAO" })
 @RequestMapping("/productos")
 public class ProductosController {
-	
+
 	@PostMapping("guardar")
 	public int agregarProducto(@RequestParam("file") MultipartFile file) throws IOException {
 		int contador2 = 0;
-		
+
 		if (file != null) {
-			
+
 			ProductoDAO p = new ProductoDAO();
 			p.deleteProduct();
 
-			//java.nio.file.Path productos = Paths.get("webapps//tiendavirtual//WEB-INF//classes//documentosCSV");
+			// java.nio.file.Path productos =
+			// Paths.get("webapps//tiendavirtual//WEB-INF//classes//documentosCSV");
 			java.nio.file.Path productos = Paths.get("src//main//resources//documentosCSV");
 			String ruta = productos.toFile().getAbsolutePath();
-			
+
 			System.out.println(ruta);
-			
+
 			file.transferTo(new File(ruta + "//" + file.getOriginalFilename()));
 			BufferedReader csvReader = new BufferedReader(new FileReader(ruta + "//" + file.getOriginalFilename()));
 
 			String row;
 			int contador = 0;
 
-			ProductoDAO productoDAO = new ProductoDAO();
 			while ((row = csvReader.readLine()) != null) {
-				
+
+				ProductoDAO productoDAO = new ProductoDAO();
+
 				if (contador == 0) {
 					contador++;
 				} else {
@@ -58,7 +60,7 @@ public class ProductosController {
 					producto.setPrecioCompra(Double.parseDouble(data[3].replaceAll("\"", "")));
 					producto.setIvaCompra(Double.parseDouble(data[4].replaceAll("\"", "")));
 					producto.setPrecioVenta(Double.parseDouble(data[5].replaceAll("\"", "")));
-					
+
 					productoDAO.createProduct(producto);
 				}
 			}
@@ -66,6 +68,7 @@ public class ProductosController {
 		} else {
 			System.out.println("No se a cargado correctamente el archivo! ");
 		}
+
 		return contador2;
 	}
 }

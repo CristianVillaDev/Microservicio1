@@ -85,7 +85,7 @@ $(document).ready(function(){
 	});
 	
 	$("#cancelarOP").on("click",function(){
-		//window.location="principal.html";
+		window.location="principal.html";
 	});
 	
 	function listadoDatos(){

@@ -19,6 +19,7 @@ public class ProductoDAO {
 	MongoClient mongoClient;
 	MongoDatabase database;
 	MongoCollection<Document> productos;
+	MongoCollection<Document> proveedores;
 	ConnectionString connectionString;
 	MongoClientSettings settings;
 
@@ -31,6 +32,8 @@ public class ProductoDAO {
 			database = mongoClient.getDatabase("tienda");
 
 			productos = database.getCollection("db_productos");
+			proveedores = database.getCollection("db_proveedores");
+
 			System.out.println("Conexión exitosa");
 		} catch (Exception e) {
 			e.getMessage();
@@ -42,23 +45,29 @@ public class ProductoDAO {
 			mongoClient.close();
 
 			System.out.println("Conexión cerrada");
+
 		} catch (Exception e) {
+
 			e.getMessage();
+
 		}
 	}
 
 	public void createProduct(Productos producto) {
 
 		try {
-			
+
 			BasicDBObject whereQuery = new BasicDBObject();
 			whereQuery.put("nitproveedor", producto.getNitProveedor());
 
-			ArrayList<Document> docproductos = productos.find(whereQuery).into(new ArrayList<>());
-			
-			if(docproductos.isEmpty() || docproductos.size() == 0) {
-				System.out.println("El producto "+producto.getNombreProducto()+ " , no coinside con proveedores cargados");
-			}else {
+			ArrayList<Document> docproveedores = proveedores.find(whereQuery).into(new ArrayList<>());
+
+			if (docproveedores.isEmpty() || docproveedores.size() == 0) {
+
+				System.out.println("El producto " + producto.getNombreProducto() + " , no coinside con proveedores cargados");
+				
+			} else {
+
 				Document documento = new Document("_id", new ObjectId());
 
 				documento.append("codigo_producto", producto.getCodigoProducto());
@@ -70,17 +79,26 @@ public class ProductoDAO {
 
 				productos.insertOne(documento);
 			}
-
+				
+			this.cerrar();
+			
 		} catch (Exception e) {
+
 			e.getMessage();
+		 
 		}
 	}
-	
+
 	public void deleteProduct() {
 		try {
+
 			productos.drop();
+			this.cerrar();
+			
 		} catch (Exception e) {
+
 			e.getMessage();
+
 		}
 	}
 }

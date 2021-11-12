@@ -49,7 +49,6 @@ $(document).ready(function(){
 		
 	}
 
-	
 	$("#formulario").submit(e =>{
 		e.preventDefault();
 		
@@ -71,7 +70,7 @@ $(document).ready(function(){
               	processData: false, 
 	            complete: function (data) {
 					console.log(data);
-					$("#mensaje").html("Productos cargados."+data);
+					$("#mensaje").html("Productos cargados."+data.responseText);
 	       		}
 	    });
 	});
