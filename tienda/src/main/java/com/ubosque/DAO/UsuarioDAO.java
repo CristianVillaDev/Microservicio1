@@ -71,6 +71,7 @@ public class UsuarioDAO {
 			} else {
 				System.out.println("El usuario ya existe");
 				System.out.println("Usuario No Creado");
+				this.cerrar();
 				return false;
 			}
 
@@ -78,6 +79,7 @@ public class UsuarioDAO {
 
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 			return false;
 		}
 		return true;
@@ -99,6 +101,7 @@ public class UsuarioDAO {
 			System.out.print("Usuario Creado");
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 			return false;
 		}
 		return true;
@@ -118,6 +121,7 @@ public class UsuarioDAO {
 			System.out.print("Usuario Creado");
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 			return false;
 		}
 		return true;
@@ -141,6 +145,7 @@ public class UsuarioDAO {
 			this.cerrar();
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 		}
 		return ListaUsuarios;
 	}
@@ -167,6 +172,7 @@ public class UsuarioDAO {
 			this.cerrar();
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 		}
 		return ListaUsuario;
 	}
@@ -202,6 +208,7 @@ public class UsuarioDAO {
 			System.out.println(docusuarios.size());
 		} catch (Exception e) {
 			e.getMessage();
+			this.cerrar();
 			return 0;
 		}
 

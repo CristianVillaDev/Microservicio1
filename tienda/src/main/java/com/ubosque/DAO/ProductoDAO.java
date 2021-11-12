@@ -83,7 +83,7 @@ public class ProductoDAO {
 			this.cerrar();
 			
 		} catch (Exception e) {
-
+			this.cerrar();
 			e.getMessage();
 		 
 		}
