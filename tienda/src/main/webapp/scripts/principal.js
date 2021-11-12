@@ -1,0 +1,71 @@
+$(document).ready(function(){
+	console.log("Funcionando jquery");
+	
+	var data=0;
+	autenticacion();
+	
+	function autenticacion(){
+		data = sessionStorage.getItem('usuario');
+		
+		if(data === null){
+			window.location="index.html";
+		}
+		
+		if(data != 1){
+			consultaUsuario();
+		}
+		
+	}
+	
+	
+	if(data !=1){
+		
+		//Usuario - no puede acceder a productos, clientes y proveedores
+		var btn = $("#accesoProductos");
+		btn.css("display","none");
+		
+		var btn2 = $("#accesoClientes");
+		btn2.css("display","none");
+		
+		var btn3 = $("#accesoProveedores");
+		btn3.css("display","none");
+		
+		var btn4 = $("#accesoUsuarios");
+		btn4.css("display","none");
+		
+	}else{
+		
+		//Administrador - no puede a 
+		var btn = $("#editar");
+		btn.css("display","none");
+	}
+	
+
+	$("#session").on("click",function(){
+		sessionStorage.removeItem('usuario');
+		autenticacion();
+	});
+	
+	$("#editar").on("click",function(){
+		window.location ="editarUsuario.html";
+	});
+	
+	
+	function consultaUsuario(){
+		
+		var getUrl = window.location;
+		//var baseUrl = getUrl.protocol + "//"+getUrl.host+"/"+getUrl.pathname.split('/')[1];
+		var baseUrl = getUrl.protocol + "//"+getUrl.host;
+		
+		$.ajax({
+			type:"GET",
+			url: baseUrl+"/usuarios/listar/"+data,
+			contentType: "application/json",
+			success: function(data){
+
+				$("#nombre").html(data[0].nombreUsuario);
+				
+			}
+		});
+	}
+});
