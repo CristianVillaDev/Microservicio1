@@ -12,6 +12,7 @@ $(document).ready(function(){
 			window.location="index.html";
 		}
 		
+		// 1 es el id asignado al administrador
 		if(data!=1){
 			window.location="principal.html";
 		}
