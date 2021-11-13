@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.ubosque.DAO.ProductoDAO;
 import com.ubosque.DTO.Productos;
 
 @RestController
+@CrossOrigin
 @ComponentScan(basePackages = { "com.ubosque.DAO" })
 @RequestMapping("/productos")
 public class ProductosController {

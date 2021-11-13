@@ -3,6 +3,7 @@ package com.ubosque.tienda;
 import java.util.ArrayList;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import com.ubosque.DAO.UsuarioDAO;
 import com.ubosque.DTO.Usuarios;
 
 @RestController
+@CrossOrigin
 @ComponentScan(basePackages = { "com.ubosque.DAO" })
 @RequestMapping("/usuarios")
 public class UsuarioController {

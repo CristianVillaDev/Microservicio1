@@ -44,6 +44,7 @@ $(document).ready(function(){
 
 	$("#session").on("click",function(){
 		sessionStorage.removeItem('usuario');
+		sessionStorage.removeItem('ciudad');
 		autenticacion();
 	});
 	

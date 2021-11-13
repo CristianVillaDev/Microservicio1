@@ -8,13 +8,22 @@ $(document).ready(function(){
 		alert("ya estas logueado");
 	}
 	
-	
 	$("#formulario").submit(e => {
 		e.preventDefault();
 		
 	 	var getUrl = window.location;
 		//var baseUrl = getUrl.protocol + "//"+getUrl.host+"/"+getUrl.pathname.split('/')[1];
 		var baseUrl = getUrl.protocol + "//"+getUrl.host;
+		
+		var ciudad ="";
+		
+		if($("#ciudad").val() == 1){
+			ciudad = "Bogotá";
+		}else if($("#ciudad").val() ==2){
+			ciduad= "Medellin";
+		}else if($("#ciudad").val() ==3){
+			ciudad="Cali";
+		}
 		
 		$.ajax({
 			type:"POST",
@@ -42,8 +51,9 @@ $(document).ready(function(){
 				if(response != 0){
 					
 					let cedula_usuario = response;
-					localStorage.setItem('usuario', cedula_usuario);
 					sessionStorage.setItem('usuario', cedula_usuario);
+					sessionStorage.setItem('ciudad', ciudad);
+					
 					window.location="principal.html";
 					
 				}else{

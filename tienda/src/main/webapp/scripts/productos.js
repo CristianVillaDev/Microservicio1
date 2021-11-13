@@ -20,6 +20,7 @@ $(document).ready(function(){
 	
 	$("#session").on("click",function(){
 		sessionStorage.removeItem('usuario');
+		sessionStorage.removeItem('ciudad');
 		autenticacion();
 	});
 	
@@ -52,15 +53,17 @@ $(document).ready(function(){
 
 	$("#formulario").submit(e =>{
 		e.preventDefault();
-		
+	
 		var form_data = new FormData();
 		var file_data = $("#file").prop("files")[0];
 	
 		var getUrl = window.location;
 		//var baseUrl = getUrl.protocol + "//"+getUrl.host+"/"+getUrl.pathname.split('/')[1];
 		var baseUrl = getUrl.protocol + "//"+getUrl.host;
-		
+	
 		form_data.append("file", file_data);
+	
+		$("#mensaje").html("Productos cargando, espere porfavor ...");
 		
 		$.ajax({
 	            type: "POST",
@@ -69,10 +72,13 @@ $(document).ready(function(){
                 data: form_data,
 				contentType: false, 
               	processData: false, 
-	            complete: function (data) {
+	            success: function (data) {
 					console.log(data);
-					$("#mensaje").html("Productos cargados."+data.responseText);
-	       		}
+					$("#mensaje").html("Productos cargados. Cantidad: "+data.responseText);
+	       		},
+				error:function(){
+					$("#mensaje").html("Ha ocurrido un error");
+				}
 	    });
 	});
 	
