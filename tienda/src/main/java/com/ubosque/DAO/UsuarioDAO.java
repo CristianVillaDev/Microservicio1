@@ -31,9 +31,9 @@ public class UsuarioDAO {
 					"mongodb+srv://admin:admin@cluster0.ykb33.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 			settings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
 			mongoClient = MongoClients.create(settings);
-			database = mongoClient.getDatabase("tienda");
+			database = mongoClient.getDatabase("db_usuarios");
 
-			usuarios = database.getCollection("db_usuarios");
+			usuarios = database.getCollection("usuarios");
 			System.out.println("Conexión exitosa");
 		} catch (Exception e) {
 			e.getMessage();
