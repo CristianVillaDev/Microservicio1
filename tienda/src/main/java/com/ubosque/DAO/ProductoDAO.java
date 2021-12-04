@@ -43,13 +43,9 @@ public class ProductoDAO {
 	public void cerrar() {
 		try {
 			mongoClient.close();
-
 			System.out.println("Conexión cerrada");
-
 		} catch (Exception e) {
-
 			e.getMessage();
-
 		}
 	}
 
@@ -65,7 +61,7 @@ public class ProductoDAO {
 			if (docproveedores.isEmpty() || docproveedores.size() == 0) {
 
 				System.out.println("El producto " + producto.getNombreProducto() + " , no coinside con proveedores cargados");
-				
+
 			} else {
 
 				Document documento = new Document("_id", new ObjectId());
@@ -79,13 +75,13 @@ public class ProductoDAO {
 
 				productos.insertOne(documento);
 			}
-				
+
 			this.cerrar();
-			
+
 		} catch (Exception e) {
 			this.cerrar();
 			e.getMessage();
-		 
+
 		}
 	}
 
@@ -94,7 +90,7 @@ public class ProductoDAO {
 
 			productos.drop();
 			this.cerrar();
-			
+
 		} catch (Exception e) {
 
 			e.getMessage();

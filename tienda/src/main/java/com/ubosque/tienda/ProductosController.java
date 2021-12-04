@@ -32,13 +32,8 @@ public class ProductosController {
 			ProductoDAO p = new ProductoDAO();
 			p.deleteProduct();
 
-			// java.nio.file.Path productos =
-			// Paths.get("webapps//tiendavirtual//WEB-INF//classes//documentosCSV");
-			java.nio.file.Path productos = Paths.get("src//main//resources//documentosCSV");
+			java.nio.file.Path productos = Paths.get("src\\main\\resources\\documentosCSV");
 			String ruta = productos.toFile().getAbsolutePath();
-
-			System.out.println(ruta);
-
 			file.transferTo(new File(ruta + "//" + file.getOriginalFilename()));
 			BufferedReader csvReader = new BufferedReader(new FileReader(ruta + "//" + file.getOriginalFilename()));
 
