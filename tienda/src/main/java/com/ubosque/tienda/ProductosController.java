@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +34,9 @@ public class ProductosController {
 			ProductoDAO p = new ProductoDAO();
 			p.deleteProduct();
 
-			java.nio.file.Path productos = Paths.get("src\\main\\resources\\documentosCSV");
+			//java.nio.file.Path productos = Paths.get("src\\main\\resources\\documentosCSV");
+			java.nio.file.Path productos = Paths.get("webapps\\microservicioProductos\\WEB-INF\\classes\\documentosCSV");
+			
 			String ruta = productos.toFile().getAbsolutePath();
 			file.transferTo(new File(ruta + "//" + file.getOriginalFilename()));
 			BufferedReader csvReader = new BufferedReader(new FileReader(ruta + "//" + file.getOriginalFilename()));
@@ -67,5 +71,11 @@ public class ProductosController {
 		}
 
 		return contador2;
+	}
+	
+	@RequestMapping("/listar/{codigo}")
+	public ArrayList<Productos> listProductos(@PathVariable("codigo") int codigo){
+		ProductoDAO productoDAO = new ProductoDAO();
+		return productoDAO.findProducto(codigo);
 	}
 }

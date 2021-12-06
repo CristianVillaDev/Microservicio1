@@ -49,6 +49,34 @@ public class ProductoDAO {
 		}
 	}
 
+	public ArrayList<Productos> findProducto(int codigo) {
+		ArrayList<Productos> listaProductos = new ArrayList<>();
+		try {
+
+			BasicDBObject whereQuery = new BasicDBObject();
+			whereQuery.put("codigo_producto", codigo);
+
+			ArrayList<Document> docProducto = productos.find(whereQuery).into(new ArrayList<>());
+
+			for (Document i : docProducto) {
+				Productos producto = new Productos();
+				producto.setCodigoProducto(i.getInteger("codigo_producto"));
+				producto.setIvaCompra(i.getDouble("ivacompra"));
+				producto.setNitProveedor(i.getInteger("nitproveedor"));
+				producto.setNombreProducto(i.getString("nombre_producto"));
+				producto.setPrecioCompra(i.getDouble("precio_compra"));
+				producto.setPrecioCompra(i.getDouble("precio_venta"));
+
+				listaProductos.add(producto);
+			}
+
+			return listaProductos;
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return listaProductos;
+	}
+
 	public void createProduct(Productos producto) {
 
 		try {
@@ -60,7 +88,8 @@ public class ProductoDAO {
 
 			if (docproveedores.isEmpty() || docproveedores.size() == 0) {
 
-				System.out.println("El producto " + producto.getNombreProducto() + " , no coinside con proveedores cargados");
+				System.out.println(
+						"El producto " + producto.getNombreProducto() + " , no coinside con proveedores cargados");
 
 			} else {
 
